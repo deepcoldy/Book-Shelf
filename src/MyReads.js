@@ -22,13 +22,26 @@ class MyReads extends React.Component {
   }
 	
   getMyReadingList() {
-			BooksAPI.getAll()
-			.then((resp)=>{
-				console.log(resp)
-				this.setState({
-					allBoooks: resp,
-				})
+		BooksAPI.getAll()
+		.then((resp) => {
+			this.setState({
+				allBoooks: resp,
 			})
+		})
+	}
+
+	updateBookShelf = (book, shelf, index) => {
+		BooksAPI.update(book, shelf)
+		// .then((resp) => {
+		// 	alert('move success!')
+		// })
+		let allBoooks = this.state.allBoooks
+		allBoooks[index].shelf = shelf
+		allBoooks.push(allBoooks[index])
+		allBoooks.splice(index, 1)
+		this.setState({
+			allBoooks,
+		})
 	}
 
   render() {
@@ -42,25 +55,24 @@ class MyReads extends React.Component {
 						<div className="bookshelf">
 							<h2 className="bookshelf-title">Currently Reading</h2>
 							<div className="bookshelf-books">
-								<BookPreview type={"currentlyReading"} books={this.state.allBoooks} />
+								<BookPreview type={"currentlyReading"} books={this.state.allBoooks} updateBookShelf={this.updateBookShelf}/>
 							</div>
 						</div>
 						<div className="bookshelf">
 							<h2 className="bookshelf-title">Want to Read</h2>
 							<div className="bookshelf-books">
-								<BookPreview type={"wantToRead"} books={this.state.allBoooks} />
+								<BookPreview type={"wantToRead"} books={this.state.allBoooks} updateBookShelf={this.updateBookShelf}/>
 							</div>
 						</div>
 						<div className="bookshelf">
 							<h2 className="bookshelf-title">Read</h2>
 							<div className="bookshelf-books">
-								<BookPreview type={"read"} books={this.state.allBoooks} />								
+								<BookPreview type={"read"} books={this.state.allBoooks} updateBookShelf={this.updateBookShelf}/>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div className="open-search">
-					{/* <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a> */}
 					<Link to={{
 							pathname: "/search",
 					}}/>

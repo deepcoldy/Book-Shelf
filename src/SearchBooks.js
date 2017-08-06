@@ -1,6 +1,7 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import { Link } from 'react-router-dom'
+import BookPreview from './BookPreview'
 import './App.css'
 
 class Search extends React.Component {
@@ -11,11 +12,31 @@ class Search extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    // showSearchPage: true
+		// showSearchPage: true
+		searchResult: [],
 	}
 	
-	searchBooks(event) {
-		// search()
+	searchBooks = (event) => {
+		BooksAPI.search(event.target.value)
+		.then((resp) => {
+			this.setState({
+				searchResult: resp,
+			})
+		})
+	}
+
+	updateBookShelf = (book, shelf, index) => {
+		BooksAPI.update(book, shelf)
+		// .then((resp) => {
+		// 	alert('move success!')
+		// })
+		let searchResult = this.state.searchResult
+		searchResult[index].shelf = shelf
+		searchResult.push(searchResult[index])
+		searchResult.splice(index, 1)
+		this.setState({
+			searchResult,
+		})
 	}
 
   render() {
@@ -39,7 +60,7 @@ class Search extends React.Component {
 					</div>
 				</div>
 				<div className="search-books-results">
-					<ol className="books-grid"></ol>
+						<BookPreview type={"search"} books={this.state.searchResult} updateBookShelf={this.updateBookShelf}/>
 				</div>
 			</div>
     )
