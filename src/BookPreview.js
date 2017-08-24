@@ -18,7 +18,7 @@ class BookPreview extends React.Component {
 										style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks && book.imageLinks.smallThumbnail})` }}></div>
 									<div className="book-shelf-changer">
 										<select defaultValue={book.shelf} onChange={(e)=>{
-												this.props.updateBookShelf(book, e.target.value, index)
+												this.props.updateBookShelf(book, e.target.value)
 											}}>
 											<option value="none" disabled>Move to...</option>
 											<option value="currentlyReading">Currently Reading</option>
