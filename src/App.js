@@ -26,10 +26,17 @@ class BooksApp extends React.Component {
 	updateBookShelf = (book, shelf) => {
 		BooksAPI.update(book, shelf)
     book.shelf = shelf;
-    const test = this.state.allBoooks.filter(item => !!(item.id !== book.id))
-    test.push(book)
+    /*
+      * It have some bug, when i use these.
+      * First, moved the first book to another shelf. Second, move it back. It still be the first one of the shelf.
+      this.setState(state => ({
+        allbooks: state.books.filter(b => b.id !== book.id).concat([ book ])
+      }))
+    */
+    const updatedBooks = this.state.allBoooks.filter(item => !!(item.id !== book.id))
+    updatedBooks.push(book)
     this.setState({
-      allBoooks: test
+      allBoooks: updatedBooks
     })
   }
   
