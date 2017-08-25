@@ -64,3 +64,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 2. `npm run start`
 
 3. open [http://localhost:3000](http://localhost:3000) in your broswer.
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
