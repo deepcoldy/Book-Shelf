@@ -25,12 +25,12 @@ class BooksApp extends React.Component {
 
 	updateBookShelf = (book, shelf) => {
 		BooksAPI.update(book, shelf)
-		.then(() => {
-      book.shelf = shelf;
-      console.log(this.setState(state => (state.allBoooks.filter(item => !!(item.id !== book.id)))))
-      this.setState(state => (state.allBoooks.filter(item => !!(item.id !== book.id))).concat([book]))
-      console.log(this.state.allBoooks)
-		})
+    book.shelf = shelf;
+    const test = this.state.allBoooks.filter(item => !!(item.id !== book.id))
+    test.push(book)
+    this.setState({
+      allBoooks: test
+    })
   }
   
   render() {
@@ -40,7 +40,12 @@ class BooksApp extends React.Component {
           <MyReads allBoooks={this.state.allBoooks} updateBookShelf={this.updateBookShelf}/>
         )}/>
         <Route path="/search" render={()=>(
-          <SearchBooks updateBookShelf={this.updateBookShelf}/>
+          <SearchBooks boooksInShelf={
+            this.state.allBoooks.reduce((accumulator, book) => {
+              accumulator[book.id] = book.shelf
+              return accumulator
+            }, {})
+          } updateBookShelf={this.updateBookShelf}/>
         )}/>
       </div>
     )

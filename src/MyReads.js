@@ -4,24 +4,11 @@ import { Link } from 'react-router-dom'
 import './App.css'
 
 class MyReads extends React.Component {
-	state = {
-		num: 0,
-	}
-	
-	clickTitle() {
-		this.setState({
-			num: this.state.num + 1
-		})
-		console.log(this.state.num)
-	}
-
   render() {
     return (
 			<div className="list-books">
 				<div className="list-books-title">
-					<h1 onClick={() => {
-							this.clickTitle()
-						}}>MyReads{this.state.num}</h1>
+					<h1>MyReads</h1>
 				</div>
 				<div className="list-books-content">
 					<div>

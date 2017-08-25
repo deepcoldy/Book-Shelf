@@ -19,23 +19,13 @@ class Search extends React.Component {
 	searchBooks = (event) => {
 		BooksAPI.search(event.target.value)
 		.then((resp) => {
-			this.setState({
-				searchResult: resp,
+			const filteredResult = resp.map(book => {
+				this.props.boooksInShelf[book.id] ? (book.shelf = this.props.boooksInShelf[book.id]) : (book.shelf = 'none')
+				return book
 			})
-		})
-	}
-
-	updateBookShelf = (book, shelf, index) => {
-		BooksAPI.update(book, shelf)
-		// .then((resp) => {
-		// 	alert('move success!')
-		// })
-		let searchResult = this.state.searchResult
-		searchResult[index].shelf = shelf
-		searchResult.push(searchResult[index])
-		searchResult.splice(index, 1)
-		this.setState({
-			searchResult,
+			this.setState({
+				searchResult: filteredResult,
+			})
 		})
 	}
 
@@ -60,7 +50,7 @@ class Search extends React.Component {
 					</div>
 				</div>
 				<div className="search-books-results">
-						<BookPreview type={"search"} books={this.state.searchResult} updateBookShelf={this.updateBookShelf}/>
+						<BookPreview type={"search"} books={this.state.searchResult} updateBookShelf={this.props.updateBookShelf}/>
 				</div>
 			</div>
     )

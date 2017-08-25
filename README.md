@@ -57,8 +57,10 @@ The backend API uses a fixed set of cached search results and is limited to a pa
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
-## Contributing
+## How to start
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+1. `npm install`
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+2. `npm run start`
+
+3. open [http://localhost:3000](http://localhost:3000) in your broswer.
