@@ -6,7 +6,7 @@
 
 3. open [http://localhost:3000](http://localhost:3000) in your broswer.
 
-## [http://localhost:3000/search](http://localhost:3000/search) allowed search terms
+## allowed search terms in [Search Page](http://localhost:3000/search)
 
 [SEARCH_TERMS](./SEARCH_TERMS.md)
 
