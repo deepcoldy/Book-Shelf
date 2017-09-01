@@ -15,11 +15,11 @@ class BookPreview extends React.Component {
 										onClick={() => {
 											location.href = book.previewLink
 										}}
-										style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks && book.imageLinks.smallThumbnail})` }}></div>
+										style={{ backgroundImage: `url(${book.imageLinks && book.imageLinks.smallThumbnail})` }}></div>
 									<div className="book-shelf-changer">
 										<select defaultValue={book.shelf} onChange={(e)=>{
 												this.props.updateBookShelf(book, e.target.value)
-											}}>
+											}}> {/* defaultValue is set to none when a book is not in shelf. From SearchBooks.js */}
 											<option value="none" disabled>Move to...</option>
 											<option value="currentlyReading">Currently Reading</option>
 											<option value="wantToRead">Want to Read</option>

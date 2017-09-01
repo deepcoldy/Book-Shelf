@@ -1,5 +1,5 @@
 import React from 'react'
-import BookPreview from './BookPreview'
+import BookShelf from './BookShelf'
 import { Link } from 'react-router-dom'
 import './App.css'
 
@@ -12,24 +12,9 @@ class MyReads extends React.Component {
 				</div>
 				<div className="list-books-content">
 					<div>
-						<div className="bookshelf">
-							<h2 className="bookshelf-title">Currently Reading</h2>
-							<div className="bookshelf-books">
-								<BookPreview type={"currentlyReading"} books={this.props.allBoooks} updateBookShelf={this.props.updateBookShelf}/>
-							</div>
-						</div>
-						<div className="bookshelf">
-							<h2 className="bookshelf-title">Want to Read</h2>
-							<div className="bookshelf-books">
-								<BookPreview type={"wantToRead"} books={this.props.allBoooks} updateBookShelf={this.props.updateBookShelf}/>
-							</div>
-						</div>
-						<div className="bookshelf">
-							<h2 className="bookshelf-title">Read</h2>
-							<div className="bookshelf-books">
-								<BookPreview type={"read"} books={this.props.allBoooks} updateBookShelf={this.props.updateBookShelf}/>
-							</div>
-						</div>
+						<BookShelf title={'Currently Reading'} type={"currentlyReading"} books={this.props.allBoooks} updateBookShelf={this.props.updateBookShelf}/>
+						<BookShelf title={'Want to Read'} type={"wantToRead"} books={this.props.allBoooks} updateBookShelf={this.props.updateBookShelf}/>
+						<BookShelf title={'Read'} type={"read"} books={this.props.allBoooks} updateBookShelf={this.props.updateBookShelf}/>
 					</div>
 				</div>
 				<div className="open-search">
