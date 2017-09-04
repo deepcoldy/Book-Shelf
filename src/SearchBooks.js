@@ -19,12 +19,10 @@ class Search extends React.Component {
 	searchBooks = (event) => {
 		BooksAPI.search(event.target.value)
 		.then((resp) => {
-			console.log(this.props.booksInShelf)
 			const searchResult = resp.map(book => {
 				book.shelf = this.props.booksInShelf[book.id] ? this.props.booksInShelf[book.id] : 'none'
 				return book
 			})
-			console.log(searchResult)
 			this.setState({
 				searchResult
 			})
