@@ -7,52 +7,51 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-		allBoooks: [],
+    allBooks: [],
+    booksInShelf: [],
 	}
 	
 	componentDidMount() {
 		this.getMyReadingList()		
-	}
+  }
+  
+  updateBooksInShelf() {
+    const booksInShelf = this.state.allBooks.reduce((accumulator, book) => {
+      accumulator[book.id] = book.shelf
+      return accumulator
+    }, {})
+    this.setState({
+      booksInShelf,
+    })
+  }
 	
   getMyReadingList() {
 		BooksAPI.getAll()
 		.then((resp) => {
 			this.setState({
-				allBoooks: resp,
-			})
+				allBooks: resp,
+      })
+      this.updateBooksInShelf()
 		})
-	}
+  }
 
 	updateBookShelf = (book, shelf) => {
 		BooksAPI.update(book, shelf)
-    book.shelf = shelf;
-    /*
-      * It have some bug, when i use these.
-      * First, moved the first book to another shelf. Second, move it back. It still be the first one of the shelf.
-      this.setState(state => ({
-        allbooks: state.books.filter(b => b.id !== book.id).concat([ book ])
-      }))
-    */
-    const updatedBooks = this.state.allBoooks.filter(item => !!(item.id !== book.id))
-    updatedBooks.push(book)
-    this.setState({
-      allBoooks: updatedBooks
-    })
+    book.shelf = shelf
+    this.setState(state => ({
+      allBooks: state.allBooks.filter(item => item.id !== book.id).concat([ book ])
+    }))
+    this.updateBooksInShelf()
   }
   
   render() {
     return (
       <div className="app">
         <Route exact path="/" render={()=>(
-          <MyReads allBoooks={this.state.allBoooks} updateBookShelf={this.updateBookShelf}/>
+          <MyReads allBooks={this.state.allBooks} updateBookShelf={this.updateBookShelf}/>
         )}/>
         <Route path="/search" render={()=>(
-          <SearchBooks boooksInShelf={
-            this.state.allBoooks.reduce((accumulator, book) => {
-              accumulator[book.id] = book.shelf
-              return accumulator
-            }, {})
-          } updateBookShelf={this.updateBookShelf}/>
+          <SearchBooks booksInShelf={this.state.booksInShelf} updateBookShelf={this.updateBookShelf}/>
         )}/>
       </div>
     )

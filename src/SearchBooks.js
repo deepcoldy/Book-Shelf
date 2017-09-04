@@ -19,13 +19,14 @@ class Search extends React.Component {
 	searchBooks = (event) => {
 		BooksAPI.search(event.target.value)
 		.then((resp) => {
-			const filteredResult = resp.length > 0 ?resp.map(book => {
-				this.props.boooksInShelf[book.id] ? (book.shelf = this.props.boooksInShelf[book.id]) : (book.shelf = 'none')
+			console.log(this.props.booksInShelf)
+			const searchResult = resp.map(book => {
+				book.shelf = this.props.booksInShelf[book.id] ? this.props.booksInShelf[book.id] : 'none'
 				return book
 			})
-			: '';
+			console.log(searchResult)
 			this.setState({
-				searchResult: filteredResult,
+				searchResult
 			})
 		})
 	}
@@ -39,19 +40,11 @@ class Search extends React.Component {
 							pathname: "/",
 					}}/>
 					<div className="search-books-input-wrapper">
-						{/* 
-							NOTES: The search from BooksAPI is limited to a particular set of search terms.
-							You can find these search terms here:
-							https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-							
-							However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-							you don't find a specific author or title. Every search is limited by search terms.
-						*/}
 						<input type="text" placeholder="Search by title or author" onChange={this.searchBooks}/>
 					</div>
 				</div>
 				<div className="search-books-results">
-						<BookPreview type={"search"} books={this.state.searchResult} updateBookShelf={this.props.updateBookShelf}/>
+					<BookPreview type={"search"} books={this.state.searchResult} updateBookShelf={this.props.updateBookShelf}/>
 				</div>
 			</div>
     )

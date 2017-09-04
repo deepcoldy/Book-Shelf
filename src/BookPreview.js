@@ -5,10 +5,10 @@ class BookPreview extends React.Component {
   render() {
 		const shelfType = this.props.type
 		const booksPreview = Object.prototype.toString.call(this.props.books) === '[object Array]' && this.props.books.length > 0 ?
-			this.props.books.map((book, index) => {
+			this.props.books.map((book) => {
 				if (book.shelf === shelfType || shelfType === 'search'){
 					return (
-						<li key={index}>
+						<li key={book.id}>
 							<div className="book">
 								<div className="book-top">
 									<div className="book-cover"
@@ -29,11 +29,9 @@ class BookPreview extends React.Component {
 									</div>
 								</div>
 								<div className="book-title">{book.title}</div>
-								{
-									book.authors && book.authors.length > 0 ? book.authors.map((author, index) => {
-										return <div className="book-authors" key={index}>{author}</div>
-									}) : ''
-								}
+								<div className="book-authors">
+									{book.authors ? book.authors.join(', ') : ''}
+								</div>
 							</div>
 						</li>
 					);
