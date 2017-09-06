@@ -18,9 +18,10 @@ class MyReads extends React.Component {
 					</div>
 				</div>
 				<div className="open-search">
-					<Link to={{
+					<Link to="/search" />
+					{/* better than <Link to={{
 							pathname: "/search",
-					}}/>
+					}}/> */}
 				</div>
 			</div>
     )

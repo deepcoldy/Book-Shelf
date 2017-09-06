@@ -8,7 +8,7 @@ import './App.css'
 class BooksApp extends React.Component {
   state = {
     allBooks: [],
-    booksInShelf: [],
+    booksInShelf: {},
 	}
 	
 	componentDidMount() {
